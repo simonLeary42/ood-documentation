@@ -6,16 +6,21 @@ v1.6 Release Notes
 Highlights in 1.6:
 
 - `OnDemand passed a security audit`_
+- `Added a link to open a terminal on the VNC app connection panel`_
+- `Added controls for VNC compression and quality`_
 - `Added job array support for LSF and PBSPro adapters`_
 - `Added localization options to the Dashboard and Job Composer`_
 - `Added rendering of HTML or Markdown in Job Composer template manifests`_
 - `Added support for fetching quota from a URL`_
 - `Added version strings to Dashboard`_
 - `Changed ngnix_stage to always remove stale PID files`_
+- `Changed the File Explorer's 'Open in Terminal' button to offer multiple options`_
 - `Fixed Active Jobs to show empty cell if account is nil`_
 - `Fixed bug in File Explorer relating to hiding the Open in Terminal button`_
 - `Fixed crash in nginx_stage`_
 - `Fixed Job Composer layout when job name is long`_
+- `Fixed possible crash in Job Composer`_
+- `Fixed sorting of cluster drop down in Active Jobs`_
 - `Fixed Time Used format for Active Jobs`_
 - `Fixed warning about eager loading gems`_
 - `Improved Slurm and Grid Engine adapters`_
@@ -66,23 +71,23 @@ Application Version Changes
    * - App
      - Version
    * - `Dashboard App`
-     - 1.31.0 → `1.33.4 <https://github.com/OSC/ood-dashboard/blob/v1.33.4/CHANGELOG.md>`__
-       (`diff <https://github.com/OSC/ood-dashboard/compare/v1.31.0...v1.33.4>`__)
+     - 1.31.0 → `1.34.0 <https://github.com/OSC/ood-dashboard/blob/v1.34.0/CHANGELOG.md>`__
+       (`diff <https://github.com/OSC/ood-dashboard/compare/v1.31.0...v1.34.0>`__)
    * - `Shell App`
-     - 1.4.2 → `1.4.3 <https://github.com/OSC/ood-shell/blob/v1.4.3/CHANGELOG.md>`__
-       (`diff <https://github.com/OSC/ood-shell/compare/v1.4.2...v1.4.3>`__)
+     - 1.4.2 → `1.4.4 <https://github.com/OSC/ood-shell/blob/v1.4.4/CHANGELOG.md>`__
+       (`diff <https://github.com/OSC/ood-shell/compare/v1.4.2...v1.4.4>`__)
    * - `Files App`
-     - 1.5.1 → `1.5.2 <https://github.com/OSC/ood-fileexplorer/blob/v1.5.2/CHANGELOG.md>`__
-       (`diff <https://github.com/OSC/ood-fileexplorer/compare/v1.5.1...v1.5.2>`__)
+     - 1.5.1 → `1.5.3 <https://github.com/OSC/ood-fileexplorer/blob/v1.5.3/CHANGELOG.md>`__
+       (`diff <https://github.com/OSC/ood-fileexplorer/compare/v1.5.1...v1.5.3>`__)
    * - `File Editor App`
      - 1.4.1 → `1.4.3 <https://github.com/OSC/ood-fileeditor/blob/v1.4.3/CHANGELOG.md>`__
        (`diff <https://github.com/OSC/ood-fileeditor/compare/v1.4.1...v1.4.3>`__)
    * - `Active Jobs App`
-     - 1.7.0 → `1.9.1 <https://github.com/OSC/ood-activejobs/blob/v1.9.1/CHANGELOG.md>`__
-       (`diff <https://github.com/OSC/ood-activejobs/compare/v1.7.0...v1.9.1>`__)
+     - 1.7.0 → `1.9.2 <https://github.com/OSC/ood-activejobs/blob/v1.9.2/CHANGELOG.md>`__
+       (`diff <https://github.com/OSC/ood-activejobs/compare/v1.7.0...v1.9.2>`__)
    * - `Job Composer App`
-     - 2.11.0 → `2.14.0 <https://github.com/OSC/ood-myjobs/blob/v2.14.0/CHANGELOG.md>`__
-       (`diff <https://github.com/OSC/ood-myjobs/compare/v2.11.0...v2.14.0>`__)
+     - 2.11.0 → `2.15.0 <https://github.com/OSC/ood-myjobs/blob/v2.15.0/CHANGELOG.md>`__
+       (`diff <https://github.com/OSC/ood-myjobs/compare/v2.11.0...v2.15.0>`__)
    * - `Desktops App`
      - 0.2.0 → `0.2.1 <https://github.com/OSC/bc_desktop/blob/v0.2.1/CHANGELOG.md>`__
        (`diff <https://github.com/OSC/bc_desktop/compare/v0.2.0...v0.2.1>`__)
@@ -103,6 +108,17 @@ Thanks to Elisa Heymann, Joel Atkins and Barton P. Miller for performing the aud
 .. _openondemand.org: https://openondemand.org/documents/Open%20OnDemand%20Trusted%20CI%20Engagement%20Report.pdf
 
 .. _TrustedCI: https://trustedci.org/
+
+Added a link to open a terminal on the VNC app connection panel
+...............................................................
+
+When an Interactive app is running the Dashboard shows a link to start a terminal session to the compute node that is running the VNC job.
+
+Added controls for VNC compression and quality
+..............................................
+
+OnDemand VNC applications that use noVNC offer sliders to set the server's compression and image quality settings at VNC connect-time.
+
 
 Added rendering of HTML or Markdown in Job Composer template manifests
 ......................................................................
@@ -151,6 +167,11 @@ Changed ngnix_stage to always remove stale PID files
 
 .. _ondemand#11: https://github.com/OSC/ondemand/issues/11
 
+Changed the File Explorer's 'Open in Terminal' button to offer multiple options
+...............................................................................
+
+When the environment variable ``OOD_SSH_HOSTS`` is set the 'Open in Terminal' button may be used to select from more than one SSH host.
+
 Added job array support for LSF and PBSPro adapters
 ...................................................
 
@@ -191,6 +212,16 @@ Fixed Job Composer layout when job name is long
 ...............................................
 
 Job names that were exceptionally long and did not contain 'break-able' punctuation could break the layout of the Job Composer's data table. The table has been updated so that job names wrap and will break mid-word if necessary.
+
+Fixed possible crash in Job Composer
+....................................
+
+Fixes a crash in ``setup-production`` where when ``DATABASE_PATH`` is specified, and the database file did not exist, and the path contains a tilda, and is different than ``OOD_DATAROOT``.
+
+Fixed sorting of cluster drop down in Active Jobs
+.................................................
+
+Cluster names in the Active Job drop down are now sorted.
 
 Improved Slurm and Grid Engine adapters
 .......................................
