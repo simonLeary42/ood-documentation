@@ -200,6 +200,10 @@ The adapter also has the ability to submit work directly to specific nodes inste
      native:
        submit_host_override: <%= selected_node %>
 
+.. note::
+
+  Any host that is used as a target for the adapter must appear in the cluster config's ``ssh_hosts`` list.
+
 .. _host based authentication: https://en.wikibooks.org/wiki/OpenSSH/Cookbook/Host-based_Authentication
 .. _slice: https://www.freedesktop.org/software/systemd/man/systemd.slice.html
 .. _unshare: man7.org/linux/man-pages/man1/unshare.1.html
