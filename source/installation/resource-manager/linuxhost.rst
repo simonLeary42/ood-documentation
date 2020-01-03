@@ -187,6 +187,19 @@ The second way to use Singularity is the designed use of containers: launch a se
 
    Subsequent versions of the adapter are expected to use unshare_ for PID namespacing as the default method instead of Singularity. Singularity will continue to be supported.
 
+Submitting to specific nodes
+****************************
+
+The adapter also has the ability to submit work directly to specific nodes instead of leaving it up to a round robin. To use this we need to make use of a "native" feature of the Linux Host adapter. For example in a Batch Connect app if in your ``form.yml`` the node selection field is named ``selected_node``then you would add the following to your ``submit.yaml.erb``:
+
+.. code-block:: yaml
+
+   # $BC_APP/submit.yml.erb
+   ---
+   script:
+     native:
+       submit_host_override: <%= selected_node %>
+
 .. _host based authentication: https://en.wikibooks.org/wiki/OpenSSH/Cookbook/Host-based_Authentication
 .. _slice: https://www.freedesktop.org/software/systemd/man/systemd.slice.html
 .. _unshare: man7.org/linux/man-pages/man1/unshare.1.html
