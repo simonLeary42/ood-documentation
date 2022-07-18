@@ -44,6 +44,7 @@ such:
      - "Require valid-user"
 
    # Use Shibboleth logout
+   #                                                    https://idp.my-center.edu/idp/profile/Logout
    logout_redirect: /Shibboleth.sso/Logout?return=https%3A%2F%2Fidp.my-center.edu%2Fidp%2Fprofile%2FLogout
 
    # Capture system user name from authenticated user name
@@ -53,7 +54,7 @@ such:
 In the example above:
 
 - The ``user_map_cmd`` uses regular expressions to map the authenticated user
-  ``bob@my-center.edu`` to their system user name ``bob``.
+  ``bob@my-center.edu`` to their system user name ``bob``. See `User Mapping`_
 - The ``RequestHeader`` settings are used to strip private session information
   from being sent to the backend web servers.
 - The ``logout_redirect`` will first redirect the user to log out of the Open
@@ -69,3 +70,4 @@ you need to generate the new Apache configuration file with:
 
 
 .. _apache module for shibboleth: https://wiki.shibboleth.net/confluence/display/SHIB2/NativeSPApacheConfig
+.. _user mapping: https://osc.github.io/ood-documentation/latest/authentication/overview/map-user.html
